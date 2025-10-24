@@ -1,5 +1,5 @@
 import "react-datepicker/dist/react-datepicker.css";
-import "./test.css"; // custom styling (below)
+import "./index.css"; // custom styling (below)
 import React, { useEffect, useRef, useState } from "react";
 interface CountGuest {
     adultCount:number;
