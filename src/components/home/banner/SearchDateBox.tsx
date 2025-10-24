@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./test.css"; // custom styling (below)
+import "./index.css"; // custom styling (below)
 
 
 interface DatePickerProps {
