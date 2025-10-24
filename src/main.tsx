@@ -1,6 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
+import "./assets_getyourtrip/css/bootstrap.min.css";
+import "./assets_getyourtrip/css/jquery-ui.css";
+import "./assets_getyourtrip/css/bootstrap-icons.css";
 import "./assets_getyourtrip/css/all.min.css";
 import "./assets_getyourtrip/css/animate.min.css";
 import "./assets_getyourtrip/css/jquery.fancybox.min.css";
