@@ -1,0 +1,10 @@
+.animate-text span {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.animate-text .text-in {
+  opacity: 1;
+}
