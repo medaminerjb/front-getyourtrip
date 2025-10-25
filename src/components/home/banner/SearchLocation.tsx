@@ -28,13 +28,13 @@ const SearchLocation: React.FC<LocationsProps> = ({ onSelect }) => {
   const [activeTab, setActiveTab] = useState(false);
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Location | Airport>();
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
+  
   // Filter locations based on search
   const filteredOptions = locations.filter((loc) =>
     loc.Name.toLowerCase().includes(search.toLowerCase())
-  );
+);
 
+const dropdownRef = useRef<HTMLDivElement>(null);
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
