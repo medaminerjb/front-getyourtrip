@@ -1,5 +1,8 @@
-import React from "react";
+import React ,{useState,useEffect} from "react";
 import { Link, useLocation } from "react-router-dom";
+import SignInModal from "sub-components/signin/SignIn";
+import UserPanel from "./User";
+import LangCurrencyModal from "./Currency";
 interface Menu {
     Name : string;
     Url : string;
@@ -11,22 +14,58 @@ const menu: Menu[] = [
   { Name: "Tour's Guide", Url: "/tours-guide" },
   { Name: "Contact Us", Url: "/contact" },
 ];
+
 const Header: React.FC = () => {
+    const [ShowSideBar, setShowSideBar] = useState<boolean>(false);
+    const IMG_SVG_URL = import.meta.env.VITE_LOGO_SVG_URL;
+     const IMG_PNG_URL = import.meta.env.VITE_LOGO_PNG_URL;
+
+     const [ShowSignIn, setsetshowsignin] = useState<boolean>(false);
   const location = useLocation();
+useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector<HTMLElement>(
+        "header.header-area, .dashboard-sidebar-wrapper"
+      );
+      if (header) {
+        header.classList.toggle("sticky", window.scrollY > 0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
      <header className="header-area style-2">
         <div className="header-logo">
-            <a href="index.html"><img alt="image" className="img-fluid" src="/img/logo2.svg"/></a>
+            <a href="index.html"><img alt="image" className="img-fluid" height={120} width={120} src={IMG_SVG_URL}/></a>
         </div>
-        <div className="main-menu">
+        <div className={`main-menu ${ShowSideBar ? "show-menu"  : ""}` }>
             <div className="mobile-logo-area d-lg-none d-flex justify-content-between align-items-center">
                 <div className="mobile-logo-wrap">
-                    <a href="index.html"><img alt="image" src="/img/logo2.svg"/></a>
+                    <a href="index.html">
+                        <img alt="image" height={80} width={140} src={IMG_PNG_URL}/></a>
                 </div>
-                <div className="menu-close-btn">
+                <div className="menu-close-btn" onClick={()=>setShowSideBar(!ShowSideBar)}>
                     <i className="bi bi-x"></i>
                 </div>
             </div>
+                    <div className="topbar-right d-lg-none d-block ">
+                <button type="button" className="modal-btn header-cart-btn" data-bs-toggle="modal" data-bs-target="#user-login">
+                    <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14.4311 12.759C15.417 11.4291 16 9.78265 16 8C16 3.58169 12.4182 0 8 0C3.58169 0 0 3.58169 0 8C0 12.4182 3.58169 16 8 16C10.3181 16 12.4058 15.0141 13.867 13.4387C14.0673 13.2226 14.2556 12.9957 14.4311 12.759ZM13.9875 12C14.7533 10.8559 15.1999 9.48009 15.1999 8C15.1999 4.02355 11.9764 0.799983 7.99991 0.799983C4.02355 0.799983 0.799983 4.02355 0.799983 8C0.799983 9.48017 1.24658 10.8559 2.01245 12C2.97866 10.5566 4.45301 9.48194 6.17961 9.03214C5.34594 8.45444 4.79998 7.49102 4.79998 6.39995C4.79998 4.63266 6.23271 3.19993 8 3.19993C9.76729 3.19993 11.2 4.63266 11.2 6.39995C11.2 7.49093 10.654 8.45444 9.82039 9.03206C11.5469 9.48194 13.0213 10.5565 13.9875 12ZM13.4722 12.6793C12.3495 10.8331 10.3188 9.59997 8.00008 9.59997C5.68126 9.59997 3.65049 10.8331 2.52776 12.6794C3.84829 14.2222 5.80992 15.2 8 15.2C10.1901 15.2 12.1517 14.2222 13.4722 12.6793ZM8 8.79998C9.32551 8.79998 10.4 7.72554 10.4 6.39995C10.4 5.07444 9.32559 3.99992 8 3.99992C6.6744 3.99992 5.59997 5.07452 5.59997 6.40003C5.59997 7.72554 6.67449 8.79998 8 8.79998Z">
+                        </path>
+                    </svg>
+                    REGISTER/ LOGIN
+                </button>
+                
+            </div>
+            
             <ul className="menu-list">
                 {menu.map((item, index) => {
               // Check if current path matches menu Url
@@ -44,7 +83,7 @@ const Header: React.FC = () => {
               );
             })}
             </ul>
-            <div className="topbar-right d-lg-none d-block">
+            <div className="topbar-right d-lg-none d-block ">
                 <button type="button" className="modal-btn header-cart-btn" data-bs-toggle="modal" data-bs-target="#user-login">
                     <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -53,7 +92,9 @@ const Header: React.FC = () => {
                     </svg>
                     REGISTER/ LOGIN
                 </button>
+                
             </div>
+            
             <div className="hotline-area d-lg-none d-flex">
                 <div className="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
@@ -73,21 +114,8 @@ const Header: React.FC = () => {
         </div>
         <div className="nav-right d-flex jsutify-content-end align-items-center">
             <ul className="icon-list">
-                <li className="d-lg-flex d-none">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#user-login">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                            <path
-                                d="M26 13.5C26 20.4036 20.4035 26 13.5 26C6.59632 26 1 20.4036 1 13.5C1 6.59632 6.59632 1 13.5 1C20.4035 1 26 6.59632 26 13.5Z"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M18.5001 11.8333C18.5001 14.5947 16.2616 16.8333 13.5001 16.8333C10.7384 16.8333 8.5 14.5947 8.5 11.8333C8.5 9.07189 10.7384 6.8333 13.5001 6.8333C16.2616 6.8333 18.5001 9.07189 18.5001 11.8333Z"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M6.04297 23.5324C6.44287 19.7667 9.62917 16.8333 13.5008 16.8333C17.3725 16.8333 20.5588 19.7669 20.9585 23.5325"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-                </li>
+                    <LangCurrencyModal />
+                    <UserPanel OpenModelSignIn={()=>setsetshowsignin(true)}  />
                 <li className="right-sidebar-button">
                     <svg className="sidebar-toggle-button" width="25" height="25" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.29608 0.0658336C0.609639 0.31147 0.139209 0.899069 0.0432028 1.63598C-0.0144009 2.09353 -0.0144009 5.4939 0.0432028 5.95146C0.129608 6.59686 0.489632 7.11703 1.07047 7.42046L1.36329 7.57458H3.83545H6.30761L6.59563 7.42046C6.96525 7.2278 7.25807 6.93401 7.45008 6.56314L7.60369 6.27416V3.79372V1.31328L7.45008 1.02429C7.25807 0.653433 6.96525 0.359633 6.59563 0.166978L6.30761 0.0128531L3.90745 0.00322056C1.83372 -0.00641251 1.4785 0.00322056 1.29608 0.0658336ZM6.2356 0.802741C6.52842 0.956866 6.65803 1.08209 6.79244 1.34699L6.90765 1.57336V3.80817V6.03816L6.74924 6.29824C6.53322 6.66429 6.2068 6.85694 5.74117 6.90029C5.54916 6.91956 4.55549 6.92437 3.52343 6.91474L1.65131 6.90029L1.41129 6.77025C1.12807 6.62094 1.00807 6.49571 0.854455 6.20191L0.739248 5.98518V3.79372V1.60226L0.854455 1.38552C1.05607 0.995397 1.33929 0.778659 1.74731 0.706413C1.85292 0.687148 2.85618 0.677515 3.97946 0.677515L6.01959 0.687148L6.2356 0.802741Z"></path>
@@ -98,13 +126,16 @@ const Header: React.FC = () => {
                 </li>
             </ul>
             <a href="package-grid.html" className="primary-btn3 d-xl-flex d-none">Book A Trip</a>
-            <div className="sidebar-button mobile-menu-btn">
+            <div className="sidebar-button mobile-menu-btn" style={{cursor:"pointer"}} onClick={()=>setShowSideBar(!ShowSideBar)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
                     <path
                         d="M0 4.46439C0 4.70119 0.0940685 4.92829 0.261511 5.09574C0.428955 5.26318 0.656057 5.35725 0.892857 5.35725H24.1071C24.3439 5.35725 24.571 5.26318 24.7385 5.09574C24.9059 4.92829 25 4.70119 25 4.46439C25 4.22759 24.9059 4.00049 24.7385 3.83305C24.571 3.6656 24.3439 3.57153 24.1071 3.57153H0.892857C0.656057 3.57153 0.428955 3.6656 0.261511 3.83305C0.0940685 4.00049 0 4.22759 0 4.46439ZM4.46429 11.6072H24.1071C24.3439 11.6072 24.571 11.7013 24.7385 11.8688C24.9059 12.0362 25 12.2633 25 12.5001C25 12.7369 24.9059 12.964 24.7385 13.1315C24.571 13.2989 24.3439 13.393 24.1071 13.393H4.46429C4.22749 13.393 4.00038 13.2989 3.83294 13.1315C3.6655 12.964 3.57143 12.7369 3.57143 12.5001C3.57143 12.2633 3.6655 12.0362 3.83294 11.8688C4.00038 11.7013 4.22749 11.6072 4.46429 11.6072ZM12.5 19.643H24.1071C24.3439 19.643 24.571 19.737 24.7385 19.9045C24.9059 20.0719 25 20.299 25 20.5358C25 20.7726 24.9059 20.9997 24.7385 21.1672C24.571 21.3346 24.3439 21.4287 24.1071 21.4287H12.5C12.2632 21.4287 12.0361 21.3346 11.8687 21.1672C11.7012 20.9997 11.6071 20.7726 11.6071 20.5358C11.6071 20.299 11.7012 20.0719 11.8687 19.9045C12.0361 19.737 12.2632 19.643 12.5 19.643Z" />
                 </svg>
             </div>
         </div>
+        {ShowSignIn && (
+            <SignInModal show={ShowSignIn} handleClose={()=>setsetshowsignin(false)} />
+            )}
     </header>
   );
 };
