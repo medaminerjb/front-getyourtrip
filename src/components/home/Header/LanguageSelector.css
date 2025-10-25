@@ -1,0 +1,40 @@
+.language-selector {
+  list-style: none;
+}
+
+.language-btn {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--title-color);
+  list-style: none;
+  border-radius: 6px;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 150px;
+}
+
+.sub-menu li {
+    color: #f5f5f5;
+}
+
+.language-option {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.language-option:hover {
+    background: rgba(211, 211, 211, 0.231372549);
+}
