@@ -14,7 +14,7 @@ const menu: Menu[] = [
 ];
 const Footer:React.FC = () => {
     return(
-         <footer className="footer-section style-2">
+         <footer className="footer-section">
         <div className="container">
             <div className="footer-top">
                 <div className="row g-lg-4 gy-5 justify-content-center">
