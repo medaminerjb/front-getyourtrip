@@ -11,38 +11,45 @@ const HomeBanner: React.FC = () => {
   const swiperRef = useRef<SwiperClass | null>(null);
     const nextRef = useRef<HTMLDivElement>(null);
      const slides = [
-    { id: 1, img: "/img/home2/home2-banner-img1.jpg", alt: "Slide 1" },
-    { id: 2, img: "/img/home2/home2-banner-img2.jpg", alt: "Slide 2" },
-    { id: 3, img: "/img/home2/home2-banner-img3.jpg", alt: "Slide 3" },
-    { id: 4, img: "/img/home2/home2-banner-img4.jpg", alt: "Slide 4" },
+    { id: 1, img: "img/home2/home2-banner-img1.jpg", alt: "Slide 1" },
+    { id: 2, img: "img/home2/home2-banner-img2.jpg", alt: "Slide 2" },
+    { id: 3, img: "img/home2/home2-banner-img3.jpg", alt: "Slide 3" },
+    { id: 4, img: "img/home2/home2-banner-img4.jpg", alt: "Slide 4" },
   ];
 
   return (
      <div className="home2-banner-area">
         <div className="swiper home1-banner-slider">
-             <div className="swiper-wrapper">
                   <Swiper
-                   onSwiper={(swiper) => (swiperRef.current = swiper)}
-                      modules={[Autoplay, Pagination, Navigation, EffectFade]}
+                     onSwiper={(swiper) => (swiperRef.current = swiper)}
+      modules={[Autoplay, Pagination, Navigation, EffectFade]}
       slidesPerView={1}
-      speed={1500}
-        spaceBetween={0}
+      spaceBetween={0}
       effect="fade"
-      loop={true} // ✅ infinite loop
+      loop={true} // enable loop after images loaded
       autoplay={{ delay: 2500, disableOnInteraction: false }}
-       pagination={{ clickable: true }}
- 
-        fadeEffect={{ crossFade: true }}
+      pagination={{ clickable: true }}
+      fadeEffect={{ crossFade: true }}
+      className="swiper-wrapper"
     >
       {slides.map((slide) => (
-        <SwiperSlide key={slide.id} className="home2-banner-wrapper">
-          <img src={slide.img} alt={slide.alt} className="img-fluid" />
+        <SwiperSlide key={slide.id} className="swiper-slide" >
+            <div
+            className="home2-banner-wrapper"
+            style={{
+              width: "100%",
+              height: "500px", // adjust as needed
+              backgroundColor: "#fffff", // fallback dark color
+              backgroundImage: `linear-gradient(180deg, rgba(16,12,8,0.4) 0%, rgba(16,12,8,0.4) 100%), url(${slide.img})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
         </SwiperSlide>
       ))}
 
       <div className="swiper-pagination5 pagination1"></div>
     </Swiper>
-           </div>
             </div>
         <div className="home2-banner-content-wrap">
             <div className="container">
