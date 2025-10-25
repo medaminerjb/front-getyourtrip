@@ -15,7 +15,7 @@ import "./assets_getyourtrip/css/slick-theme.css";
 import "./assets_getyourtrip/css/boxicons.min.css";
 import "./assets_getyourtrip/css/select2.css";
 import "./assets_getyourtrip/css/nice-select.css";
-import "./assets_getyourtrip/css/style.css";
+import "assets_getyourtrip/css/style.css";
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
